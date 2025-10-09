@@ -135,12 +135,25 @@ function showCourseSelect() {
 
 
 function confirmCourse() {
-    const index = document.getElementById('courseDropdown').value;
-    selectedCourse = courses[index];
+  const selectedKey = document.getElementById('courseDropdown').value;
+
+  db.ref('courses/' + selectedKey).once('value').then(snapshot => {
+    const course = snapshot.val();
+    if (!course) {
+      alert("Course not found.");
+      return;
+    }
+
+    selectedCourse = course;
     courseSelectPage.classList.add('hidden');
     scoreRoundPage.classList.remove('hidden');
     renderHolesWithCourse();
+  }).catch(error => {
+    console.error("Error loading course:", error);
+    alert("Failed to load course.");
+  });
 }
+
 
 function renderHolesWithCourse() {
     holesContainer.innerHTML = '';
