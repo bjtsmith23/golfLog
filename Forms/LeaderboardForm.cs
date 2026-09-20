@@ -13,8 +13,8 @@ namespace GolfTracker.Forms
         public LeaderboardForm()
         {
             Title = "Leaderboard";
-            Width = 330;
-            Height = 430;
+            Width = 540;
+            Height = 560;
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
             var panel = new StackPanel { Margin = new Thickness(20) };
@@ -28,14 +28,29 @@ namespace GolfTracker.Forms
             btnLoad.Click += LoadLeaderboard;
             panel.Children.Add(btnLoad);
 
-            list.Height = 250;
+            list.Height = 390;
             list.Margin = new Thickness(0, 12, 0, 0);
+            list.HorizontalContentAlignment = HorizontalAlignment.Stretch;
+
+            var itemStyle = new Style(typeof(ListBoxItem));
+            itemStyle.Setters.Add(new Setter(Control.BorderBrushProperty, System.Windows.Media.Brushes.LightGray));
+            itemStyle.Setters.Add(new Setter(Control.BorderThicknessProperty, new Thickness(1)));
+            itemStyle.Setters.Add(new Setter(Control.MarginProperty, new Thickness(0, 0, 0, 8)));
+            itemStyle.Setters.Add(new Setter(Control.PaddingProperty, new Thickness(10)));
+            list.ItemContainerStyle = itemStyle;
+
             panel.Children.Add(list);
 
             Content = panel;
+            Loaded += LoadCurrentYear;
         }
 
-        private void LoadLeaderboard(object sender, RoutedEventArgs e)
+        private void LoadCurrentYear(object? sender, RoutedEventArgs e)
+        {
+            LoadLeaderboard(sender, e);
+        }
+
+        private void LoadLeaderboard(object? sender, RoutedEventArgs e)
         {
             if (!int.TryParse(yearInput.Text, out var year))
             {
@@ -44,11 +59,24 @@ namespace GolfTracker.Forms
             }
 
             var service = new LeaderboardService();
-            var results = service.GetYearTotals(year);
+            var results = service.GetYearRoundResults(year);
 
             list.Items.Clear();
             foreach (var r in results)
-                list.Items.Add($"{r.Player}: {r.TotalStrokes} strokes");
+            {
+                var resultText = r.Player1Score == r.Player2Score
+                    ? "Tie"
+                    : r.Player1Score < r.Player2Score
+                        ? $"{r.Player1} beat {r.Player2} by {r.StrokeDifference} strokes"
+                        : $"{r.Player2} beat {r.Player1} by {r.StrokeDifference} strokes";
+
+                list.Items.Add($"Round {r.RoundId} | {r.DatePlayed:yyyy-MM-dd}\n" +
+                    $"{r.Player1}: {r.Player1Score} strokes    {r.Player2}: {r.Player2Score} strokes\n" +
+                    resultText);
+            }
+
+            if (!results.Any())
+                list.Items.Add("No rounds found for this year.");
         }
     }
 }
