@@ -1,42 +1,50 @@
 using System;
-using System.Linq;
-using System.Windows.Forms;
+using System.Windows;
+using System.Windows.Controls;
 using GolfTracker.Services;
 
 namespace GolfTracker.Forms
 {
-    public class LeaderboardForm : Form
+    public class LeaderboardForm : Window
     {
-        private NumericUpDown yearInput = new NumericUpDown();
-        private ListBox list = new ListBox();
+        private readonly TextBox yearInput = new TextBox();
+        private readonly ListBox list = new ListBox();
 
         public LeaderboardForm()
         {
-            Text = "Leaderboard";
-            Width = 300;
-            Height = 400;
+            Title = "Leaderboard";
+            Width = 330;
+            Height = 430;
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
-            yearInput.Top = 20;
-            yearInput.Minimum = 2000;
-            yearInput.Maximum = 2100;
-            yearInput.Value = DateTime.Now.Year;
+            var panel = new StackPanel { Margin = new Thickness(20) };
 
-            var btnLoad = new Button { Text = "Load", Top = 60, Left = 20 };
+            panel.Children.Add(new Label { Content = "Year" });
+            yearInput.Text = DateTime.Now.Year.ToString();
+            yearInput.Width = 120;
+            panel.Children.Add(yearInput);
+
+            var btnLoad = new Button { Content = "Load", Width = 120, Margin = new Thickness(0, 12, 0, 0) };
             btnLoad.Click += LoadLeaderboard;
+            panel.Children.Add(btnLoad);
 
-            list.Top = 100;
-            list.Width = 250;
             list.Height = 250;
+            list.Margin = new Thickness(0, 12, 0, 0);
+            panel.Children.Add(list);
 
-            Controls.Add(yearInput);
-            Controls.Add(btnLoad);
-            Controls.Add(list);
+            Content = panel;
         }
 
-        private void LoadLeaderboard(object sender, EventArgs e)
+        private void LoadLeaderboard(object sender, RoutedEventArgs e)
         {
+            if (!int.TryParse(yearInput.Text, out var year))
+            {
+                MessageBox.Show("Please enter a valid year.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             var service = new LeaderboardService();
-            var results = service.GetYearTotals((int)yearInput.Value);
+            var results = service.GetYearTotals(year);
 
             list.Items.Clear();
             foreach (var r in results)

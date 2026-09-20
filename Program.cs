@@ -1,5 +1,5 @@
 using System;
-using System.Windows.Forms;
+using System.Windows;
 using GolfTracker.Forms;
 
 namespace GolfTracker
@@ -9,8 +9,8 @@ namespace GolfTracker
         [STAThread]
         static void Main()
         {
-            ApplicationConfiguration.Initialize();
-            Application.Run(new MainForm());
+            var app = new Application();
+            app.Run(new MainForm());
         }
     }
 }

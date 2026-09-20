@@ -1,27 +1,31 @@
-using System;
-using System.Windows.Forms;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace GolfTracker.Forms
 {
-    public class MainForm : Form
+    public class MainForm : Window
     {
         public MainForm()
         {
-            Text = "Golf Tracker";
-            Width = 400;
-            Height = 300;
+            Title = "Golf Tracker";
+            Width = 700;
+            Height = 500;
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
 
-            var btnAddRound = new Button { Text = "Add Round", Top = 30, Left = 30, Width = 150 };
-            var btnEnterScores = new Button { Text = "Enter Scores", Top = 80, Left = 30, Width = 150 };
-            var btnLeaderboard = new Button { Text = "Leaderboard", Top = 130, Left = 30, Width = 150 };
+            var btnAddRound = new Button { Content = "Add Round", Width = 150, Height = 40, Margin = new Thickness(0, 0, 0, 10) };
+            var btnEnterScores = new Button { Content = "Enter Scores", Width = 150, Height = 40, Margin = new Thickness(0, 0, 0, 10) };
+            var btnLeaderboard = new Button { Content = "Leaderboard", Width = 150, Height = 40 };
 
-            btnAddRound.Click += (s, e) => new AddRoundForm().ShowDialog();
-            btnEnterScores.Click += (s, e) => new EnterScoresForm().ShowDialog();
-            btnLeaderboard.Click += (s, e) => new LeaderboardForm().ShowDialog();
+            btnAddRound.Click += (_, _) => new AddRoundForm().ShowDialog();
+            btnEnterScores.Click += (_, _) => new EnterScoresForm().ShowDialog();
+            btnLeaderboard.Click += (_, _) => new LeaderboardForm().ShowDialog();
 
-            Controls.Add(btnAddRound);
-            Controls.Add(btnEnterScores);
-            Controls.Add(btnLeaderboard);
+            var stack = new StackPanel { Margin = new Thickness(20) };
+            stack.Children.Add(btnAddRound);
+            stack.Children.Add(btnEnterScores);
+            stack.Children.Add(btnLeaderboard);
+
+            Content = stack;
         }
     }
 }

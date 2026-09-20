@@ -1,54 +1,74 @@
 using System;
-using System.Windows.Forms;
+using System.Windows;
+using System.Windows.Controls;
 using GolfTracker.Services;
 
 namespace GolfTracker.Forms
 {
-    public class EnterScoresForm : Form
+    public class EnterScoresForm : Window
     {
-        private TextBox txtRoundId = new TextBox();
-        private TextBox txtPlayerId = new TextBox();
-        private Button btnSave = new Button();
-        private NumericUpDown[] holeInputs = new NumericUpDown[18];
+        private readonly TextBox txtRoundId = new TextBox();
+        private readonly TextBox txtPlayerId = new TextBox();
+        private readonly TextBox[] holeInputs = new TextBox[18];
 
         public EnterScoresForm()
         {
-            Text = "Enter Scores";
-            Width = 350;
-            Height = 600;
+            Title = "Enter Scores";
+            Width = 420;
+            Height = 620;
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
 
-            txtRoundId.Top = 20; txtRoundId.PlaceholderText = "Round ID";
-            txtPlayerId.Top = 60; txtPlayerId.PlaceholderText = "Player ID";
+            var panel = new StackPanel { Margin = new Thickness(20) };
 
-            int y = 100;
+            panel.Children.Add(new Label { Content = "Round ID" });
+            txtRoundId.Width = 120;
+            panel.Children.Add(txtRoundId);
+
+            panel.Children.Add(new Label { Content = "Player ID", Margin = new Thickness(0, 12, 0, 0) });
+            txtPlayerId.Width = 120;
+            panel.Children.Add(txtPlayerId);
+
+            var inputWrap = new WrapPanel { Margin = new Thickness(0, 12, 0, 0) };
             for (int i = 0; i < 18; i++)
             {
-                holeInputs[i] = new NumericUpDown { Top = y, Left = 20, Width = 60, Minimum = 1, Maximum = 15 };
-                Controls.Add(holeInputs[i]);
-                y += 30;
+                var label = new Label { Content = $"{i + 1}", Width = 30, VerticalContentAlignment = VerticalAlignment.Center };
+                var input = new TextBox { Width = 60, Text = "0", Margin = new Thickness(0, 0, 8, 4) };
+                holeInputs[i] = input;
+                inputWrap.Children.Add(label);
+                inputWrap.Children.Add(input);
             }
 
-            btnSave.Top = y + 20;
-            btnSave.Text = "Save Scores";
-            btnSave.Click += SaveScores;
+            panel.Children.Add(new Label { Content = "Scores by hole", Margin = new Thickness(0, 12, 0, 0) });
+            panel.Children.Add(inputWrap);
 
-            Controls.Add(txtRoundId);
-            Controls.Add(txtPlayerId);
-            Controls.Add(btnSave);
+            var btnSave = new Button { Content = "Save Scores", Width = 140, Margin = new Thickness(0, 20, 0, 0) };
+            btnSave.Click += SaveScores;
+            panel.Children.Add(btnSave);
+
+            Content = panel;
         }
 
-        private void SaveScores(object sender, EventArgs e)
+        private void SaveScores(object sender, RoutedEventArgs e)
         {
-            var service = new ScoreService();
-            int roundId = int.Parse(txtRoundId.Text);
-            int playerId = int.Parse(txtPlayerId.Text);
-
-            for (int i = 0; i < 18; i++)
+            if (!int.TryParse(txtRoundId.Text, out var roundId) || !int.TryParse(txtPlayerId.Text, out var playerId))
             {
-                service.AddScore(roundId, playerId, i + 1, (int)holeInputs[i].Value);
+                MessageBox.Show("Please enter valid Round ID and Player ID.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
             }
 
-            MessageBox.Show("Scores saved.");
+            var service = new ScoreService();
+            for (int i = 0; i < 18; i++)
+            {
+                if (!int.TryParse(holeInputs[i].Text, out var score))
+                {
+                    MessageBox.Show($"Hole {i + 1} score must be a valid number.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                service.AddScore(roundId, playerId, i + 1, score);
+            }
+
+            MessageBox.Show("Scores saved.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }
