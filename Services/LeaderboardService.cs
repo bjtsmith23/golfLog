@@ -4,7 +4,7 @@ namespace GolfTracker.Services
 {
     public class LeaderboardService
     {
-        public IEnumerable<(int RoundId, DateTime DatePlayed, string Player1, int Player1Score, string Player2, int Player2Score, int StrokeDifference)> GetYearRoundResults(int year)
+        public IEnumerable<(int RoundId, DateTime DatePlayed, string Player1, int Player1Score, string Player2, int Player2Score, int StrokeDifference)> GetYearRoundResults(int? year)
         {
             using var db = new GolfContext();
 
@@ -12,10 +12,10 @@ namespace GolfTracker.Services
             var scores = db.HoleScores.ToList();
             var roundsById = rounds.ToDictionary(r => r.RoundId);
             var roundIds = rounds
-                .Where(r => r.DatePlayed.Year == year)
+                .Where(r => !year.HasValue || r.DatePlayed.Year == year.Value)
                 .Select(r => r.RoundId)
                 .Union(scores.Select(s => s.RoundId))
-                .Where(roundId => !roundsById.ContainsKey(roundId) || roundsById[roundId].DatePlayed.Year == year)
+                .Where(roundId => !year.HasValue || !roundsById.ContainsKey(roundId) || roundsById[roundId].DatePlayed.Year == year.Value)
                 .OrderByDescending(roundId => roundsById.TryGetValue(roundId, out var round) ? round.DatePlayed : DateTime.Today)
                 .ThenByDescending(roundId => roundId)
                 .ToList();

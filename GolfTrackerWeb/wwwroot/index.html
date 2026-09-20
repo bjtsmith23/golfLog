@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wallingford Invitational</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header>
+      <p class="eyebrow">GOLF LOG</p>
+      <h1>Wallingford Invitational</h1>
+      <p id="round-label" class="muted">Ready for a new round</p>
+    </header>
+
+    <section id="start-view" class="panel">
+      <h2>Start a round</h2>
+      <label for="round-date">Date played</label>
+      <input id="round-date" type="date">
+      <button id="start-round">Start Round</button>
+    </section>
+
+    <section id="score-view" class="hidden">
+      <div class="player-switch">
+        <span id="player-label">Phil</span>
+        <span id="player-step">Player 1 of 2</span>
+      </div>
+      <div id="scorecard" class="scorecard"></div>
+      <div class="score-summary">
+        <strong>Total <span id="score-total">0</span></strong>
+        <span id="score-status">Par: E</span>
+      </div>
+      <button id="save-scores">Save Phil's Scores</button>
+    </section>
+
+    <section id="leaderboard-view" class="panel leaderboard-panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">SEASON</p>
+          <h2>Leaderboard</h2>
+        </div>
+        <div class="year-controls">
+          <input id="leaderboard-year" type="number" aria-label="Leaderboard year">
+          <button id="load-year" type="button">Load Year</button>
+        </div>
+      </div>
+      <div id="annual-tracker" class="tracker">No scores for this year</div>
+      <div id="leaderboard-list" class="leaderboard-list"></div>
+    </section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>

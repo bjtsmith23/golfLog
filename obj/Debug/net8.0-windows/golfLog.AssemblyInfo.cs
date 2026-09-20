@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("golfLog")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0473ac4f443f04c1c1dba553590f6a023a012195")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d92674898c1f6336af447120517d7ed24a2f1d04")]
 [assembly: System.Reflection.AssemblyProductAttribute("golfLog")]
 [assembly: System.Reflection.AssemblyTitleAttribute("golfLog")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

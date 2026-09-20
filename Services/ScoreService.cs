@@ -8,6 +8,7 @@ namespace GolfTracker.Services
         public void AddScore(int roundId, int playerId, int hole, int score)
         {
             using var db = new GolfContext();
+            db.Database.EnsureCreated();
             db.HoleScores.Add(new HoleScore
             {
                 RoundId = roundId,
