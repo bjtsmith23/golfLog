@@ -11,28 +11,41 @@ byId('round-date').value = today;
 byId('leaderboard-year').value = new Date().getFullYear();
 
 function renderScorecard() {
-  const start = playerIndex * 0;
   const rows = [];
   rows.push(`<div class="scorecard-title">Front 9 / Back 9</div>`);
-  rows.push(`<div class="scorecard-scroll"><div class="score-row heading"><div class="score-cell">HOLE</div>${Array.from({ length: 9 }, (_, i) => `<div class="score-cell">${i + 1}</div>`).join('')}</div>`);
-  rows.push(`<div class="score-row"><div class="score-cell label">YARDS</div>${yardages.slice(0, 9).map(value => `<div class="score-cell">${value}</div>`).join('')}</div>`);
-  rows.push(`<div class="score-row"><div class="score-cell label">PAR</div>${pars.slice(0, 9).map(value => `<div class="score-cell">${value}</div>`).join('')}</div>`);
-  rows.push(`<div class="score-row"><div class="score-cell label">STROKE INDEX</div>${strokeIndexes.slice(0, 9).map(value => `<div class="score-cell">${value}</div>`).join('')}</div>`);
-  rows.push(`<div class="score-row"><div class="score-cell label">SCORE</div>${Array.from({ length: 9 }, (_, i) => `<div class="score-cell"><input class="score-input" data-hole="${i}" type="number" min="1" max="20" inputmode="numeric"></div>`).join('')}</div>`);
-  rows.push(`<div class="score-row heading"><div class="score-cell">HOLE</div>${Array.from({ length: 9 }, (_, i) => `<div class="score-cell">${i + 10}</div>`).join('')}</div>`);
-  rows.push(`<div class="score-row"><div class="score-cell label">YARDS</div>${yardages.slice(9).map(value => `<div class="score-cell">${value}</div>`).join('')}</div>`);
-  rows.push(`<div class="score-row"><div class="score-cell label">PAR</div>${pars.slice(9).map(value => `<div class="score-cell">${value}</div>`).join('')}</div>`);
-  rows.push(`<div class="score-row"><div class="score-cell label">STROKE INDEX</div>${strokeIndexes.slice(9).map(value => `<div class="score-cell">${value}</div>`).join('')}</div>`);
-  rows.push(`<div class="score-row"><div class="score-cell label">SCORE</div>${Array.from({ length: 9 }, (_, i) => `<div class="score-cell"><input class="score-input" data-hole="${i + 9}" type="number" min="1" max="20" inputmode="numeric"></div>`).join('')}</div></div>`);
+  rows.push(`<div class="scorecard-scroll">${renderNine(0, 'OUT')}${renderNine(9, 'IN')}</div>`);
   byId('scorecard').innerHTML = rows.join('');
   document.querySelector('.score-input').focus();
   document.querySelectorAll('.score-input').forEach(input => input.addEventListener('input', updateScoreSummary));
 }
 
+function renderNine(startHole, totalLabel) {
+  const holes = Array.from({ length: 9 }, (_, offset) => startHole + offset);
+  const parTotal = pars.slice(startHole, startHole + 9).reduce((sum, value) => sum + value, 0);
+  return `<div class="score-row heading"><div class="score-cell">HOLE</div>${holes.map(hole => `<div class="score-cell">${hole + 1}</div>`).join('')}<div class="score-cell total-column">${totalLabel}</div></div>` +
+    `<div class="score-row"><div class="score-cell label">YARDS</div>${holes.map(hole => `<div class="score-cell">${yardages[hole]}</div>`).join('')}<div class="score-cell total-column">${yardages.slice(startHole, startHole + 9).reduce((sum, value) => sum + value, 0)}</div></div>` +
+    `<div class="score-row"><div class="score-cell label">PAR</div>${holes.map(hole => `<div class="score-cell">${pars[hole]}</div>`).join('')}<div class="score-cell total-column">${parTotal}</div></div>` +
+    `<div class="score-row"><div class="score-cell label">STROKE INDEX</div>${holes.map(hole => `<div class="score-cell">${strokeIndexes[hole]}</div>`).join('')}<div class="score-cell total-column">-</div></div>` +
+    `<div class="score-row"><div class="score-cell label">SCORE</div>${holes.map(hole => `<div class="score-cell"><span class="score-marker"><input class="score-input" data-hole="${hole}" data-par="${pars[hole]}" type="number" min="1" max="20" inputmode="numeric"></span></div>`).join('')}<div class="score-cell total-column live-total" id="${totalLabel.toLowerCase()}-total">0</div></div>`;
+}
+
 function updateScoreSummary() {
-  const scores = [...document.querySelectorAll('.score-input')].map(input => Number(input.value) || 0);
+  const inputs = [...document.querySelectorAll('.score-input')];
+  const scores = inputs.map(input => Number(input.value) || 0);
   const total = scores.reduce((sum, score) => sum + score, 0);
+  const outTotal = scores.slice(0, 9).reduce((sum, score) => sum + score, 0);
+  const inTotal = scores.slice(9).reduce((sum, score) => sum + score, 0);
   byId('score-total').textContent = total;
+  byId('out-total').textContent = outTotal;
+  byId('in-total').textContent = inTotal;
+  inputs.forEach(input => {
+    const marker = input.parentElement;
+    marker.classList.remove('score-eagle', 'score-birdie', 'score-par', 'score-bogey', 'score-double-bogey');
+    const score = Number(input.value);
+    if (!score) return;
+    const difference = score - Number(input.dataset.par);
+    marker.classList.add(difference <= -2 ? 'score-eagle' : difference === -1 ? 'score-birdie' : difference === 0 ? 'score-par' : difference === 1 ? 'score-bogey' : 'score-double-bogey');
+  });
   const difference = total - pars.reduce((sum, par) => sum + par, 0);
   byId('score-status').textContent = difference === 0 ? 'Par: E' : difference > 0 ? `Par: +${difference}` : `Par: ${difference}`;
 }
@@ -44,6 +57,7 @@ byId('start-round').addEventListener('click', async () => {
   playerIndex = 0;
   byId('round-label').textContent = `Round ${roundId}`;
   byId('start-view').classList.add('hidden');
+  byId('leaderboard-view').classList.add('hidden');
   byId('score-view').classList.remove('hidden');
   byId('player-label').textContent = players[playerIndex].name;
   byId('player-step').textContent = 'Player 1 of 2';
@@ -54,7 +68,7 @@ byId('start-round').addEventListener('click', async () => {
 byId('save-scores').addEventListener('click', async () => {
   const inputs = [...document.querySelectorAll('.score-input')];
   const scores = inputs.map(input => Number(input.value));
-  if (scores.some(score => !Number.isInteger(score) || score < 1 || score > 20)) return alert('Enter a score from 1 to 20 for every hole.');
+  if (scores.some(score => !Number.isInteger(score) || score < 1 || score > 20)) return alert('Enter a score for every hole.');
   const response = await fetch(`/api/rounds/${roundId}/scores`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ playerId: players[playerIndex].id, scores }) });
   if (!response.ok) return alert('Could not save scores.');
   if (playerIndex === 0) {
@@ -68,6 +82,7 @@ byId('save-scores').addEventListener('click', async () => {
   alert(`Round ${roundId} saved.`);
   byId('score-view').classList.add('hidden');
   byId('start-view').classList.remove('hidden');
+  byId('leaderboard-view').classList.remove('hidden');
   loadLeaderboard();
 });
 

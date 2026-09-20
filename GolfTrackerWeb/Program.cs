@@ -10,7 +10,13 @@ Directory.CreateDirectory(Path.GetDirectoryName(databasePath)!);
 EnsureDatabase();
 
 app.UseDefaultFiles();
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+	OnPrepareResponse = context =>
+	{
+		context.Context.Response.Headers.CacheControl = "no-cache, no-store, must-revalidate";
+	}
+});
 
 app.MapGet("/api/rounds/next-id", () => Results.Ok(new { roundId = GetNextRoundId() }));
 
@@ -29,7 +35,7 @@ app.MapPost("/api/rounds", (RoundRequest request) =>
 app.MapPost("/api/rounds/{roundId:int}/scores", (int roundId, ScoreRequest request) =>
 {
 	if (request.Scores is null || request.Scores.Count != 18 || request.Scores.Any(score => score < 1 || score > 20))
-		return Results.BadRequest(new { message = "Enter a score from 1 to 20 for every hole." });
+		return Results.BadRequest(new { message = "Enter a score for every hole." });
 
 	using var connection = OpenConnection();
 	using var transaction = connection.BeginTransaction();
@@ -86,8 +92,8 @@ app.MapGet("/api/leaderboard", (int? year) =>
 		.Where(roundId => rounds[roundId].DatePlayed.Year == selectedYear)
 		.Union(scores.Select(score => score.RoundId))
 		.Where(roundId => !rounds.ContainsKey(roundId) || rounds[roundId].DatePlayed.Year == selectedYear)
-		.OrderByDescending(roundId => rounds.TryGetValue(roundId, out var round) ? round.DatePlayed : DateTime.Today)
-		.ThenByDescending(roundId => roundId)
+		.OrderBy(roundId => roundId)
+		.ThenBy(roundId => rounds.TryGetValue(roundId, out var round) ? round.DatePlayed : DateTime.Today)
 		.ToList();
 
 	var results = new List<object>();
@@ -115,9 +121,9 @@ app.MapGet("/api/leaderboard", (int? year) =>
 			player2 = PlayerName(player2Id),
 			player2Score,
 			difference,
-			result = player1Score == player2Score ? "TIE" : player1Score < player2Score
-				? $"{PlayerName(player1Id)} beat {PlayerName(player2Id)} by {difference} strokes"
-				: $"{PlayerName(player2Id)} beat {PlayerName(player1Id)} by {difference} strokes"
+			result = player1Score == player2Score ? "WASH" : player1Score < player2Score
+				? $"{PlayerName(player1Id)} wins by {difference} strokes"
+				: $"{PlayerName(player2Id)} wins by {difference} strokes"
 		});
 	}
 
@@ -156,15 +162,6 @@ int GetNextRoundId()
 	while (reader.Read())
 		if (!reader.IsDBNull(0)) highest = Math.Max(highest, reader.GetInt32(0));
 	return highest + 1;
-}
-
-int GetPlayerScore(SqliteConnection connection, int roundId, int playerId)
-{
-	using var command = connection.CreateCommand();
-	command.CommandText = "SELECT COALESCE(SUM(Score), 0) FROM HoleScores WHERE RoundId = $roundId AND PlayerId = $playerId";
-	command.Parameters.AddWithValue("$roundId", roundId);
-	command.Parameters.AddWithValue("$playerId", playerId);
-	return Convert.ToInt32(command.ExecuteScalar());
 }
 
 string PlayerName(int playerId) => playerId switch

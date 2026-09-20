@@ -48,9 +48,6 @@ C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\rjimswa.dswa.cache.json
 C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
 C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json
 C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\scopedcss\bundle\GolfTrackerWeb.styles.css
-C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\compressed\v69f1fsnis-{0}-eakkjt750e-eakkjt750e.gz
-C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\compressed\ezorlo2kjq-{0}-ixk8emvvu6-ixk8emvvu6.gz
-C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\compressed\6hakfqj6n8-{0}-442a2s9pw8-442a2s9pw8.gz
 C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\staticwebassets.build.json
 C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\staticwebassets.build.json.cache
 C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\staticwebassets.development.json
@@ -62,3 +59,6 @@ C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\refint\GolfTrackerWeb.dl
 C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\GolfTrackerWeb.pdb
 C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\GolfTrackerWeb.genruntimeconfig.cache
 C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\ref\GolfTrackerWeb.dll
+C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\compressed\ezorlo2kjq-{0}-yp6kaetfxp-yp6kaetfxp.gz
+C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\compressed\v69f1fsnis-{0}-h3ticrfpt2-h3ticrfpt2.gz
+C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\compressed\6hakfqj6n8-{0}-v9fyef3jp5-v9fyef3jp5.gz

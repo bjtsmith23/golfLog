@@ -16,8 +16,8 @@ namespace GolfTracker.Services
                 .Select(r => r.RoundId)
                 .Union(scores.Select(s => s.RoundId))
                 .Where(roundId => !year.HasValue || !roundsById.ContainsKey(roundId) || roundsById[roundId].DatePlayed.Year == year.Value)
-                .OrderByDescending(roundId => roundsById.TryGetValue(roundId, out var round) ? round.DatePlayed : DateTime.Today)
-                .ThenByDescending(roundId => roundId)
+                .OrderBy(roundId => roundId)
+                .ThenBy(roundId => roundsById.TryGetValue(roundId, out var round) ? round.DatePlayed : DateTime.Today)
                 .ToList();
 
             var playerNames = db.Players.ToDictionary(p => p.PlayerId, p => p.Name);

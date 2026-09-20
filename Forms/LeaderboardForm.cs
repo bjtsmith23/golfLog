@@ -99,10 +99,10 @@ namespace GolfTracker.Forms
             foreach (var r in results)
             {
                 var resultText = r.Player1Score == r.Player2Score
-                    ? "Tie"
+                    ? "WASH"
                     : r.Player1Score < r.Player2Score
-                        ? $"{r.Player1} beat {r.Player2} by {r.StrokeDifference} strokes"
-                        : $"{r.Player2} beat {r.Player1} by {r.StrokeDifference} strokes";
+                        ? $"{r.Player1} wins by {r.StrokeDifference} strokes"
+                        : $"{r.Player2} wins by {r.StrokeDifference} strokes";
 
                 list.Items.Add($"Round {r.RoundId} | {r.DatePlayed:yyyy-MM-dd}\n" +
                     $"{r.Player1}: {r.Player1Score} strokes    {r.Player2}: {r.Player2Score} strokes\n" +
