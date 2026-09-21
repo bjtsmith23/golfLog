@@ -40,6 +40,8 @@ button:active { transform: translateY(1px); }
 .score-marker.score-double-bogey { border: 2px solid var(--navy); box-shadow: inset 0 0 0 2px white, inset 0 0 0 4px var(--navy); }
 .score-summary { padding: 16px 2px 0; font: 16px Arial, sans-serif; }
 .score-summary strong { color: var(--navy); }
+.score-actions { display: flex; gap: 10px; }
+.score-actions button { flex: 1; }
 .year-controls { display: flex; align-items: center; gap: 8px; }
 .section-heading input { width: 94px; }
 .year-controls button { width: auto; margin: 0; padding: 11px 12px; font-size: 13px; }

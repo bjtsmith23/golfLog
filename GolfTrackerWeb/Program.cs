@@ -62,6 +62,25 @@ app.MapPost("/api/rounds/{roundId:int}/scores", (int roundId, ScoreRequest reque
 	return Results.Ok();
 });
 
+app.MapDelete("/api/rounds/{roundId:int}", (int roundId) =>
+{
+	using var connection = OpenConnection();
+	using var transaction = connection.BeginTransaction();
+	using var scores = connection.CreateCommand();
+	scores.Transaction = transaction;
+	scores.CommandText = "DELETE FROM HoleScores WHERE RoundId = $roundId";
+	scores.Parameters.AddWithValue("$roundId", roundId);
+	scores.ExecuteNonQuery();
+
+	using var round = connection.CreateCommand();
+	round.Transaction = transaction;
+	round.CommandText = "DELETE FROM Rounds WHERE RoundId = $roundId";
+	round.Parameters.AddWithValue("$roundId", roundId);
+	round.ExecuteNonQuery();
+	transaction.Commit();
+	return Results.Ok();
+});
+
 app.MapGet("/api/leaderboard", (int? year) =>
 {
 	var selectedYear = year ?? DateTime.Today.Year;

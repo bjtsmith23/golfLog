@@ -59,6 +59,6 @@ C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\refint\GolfTrackerWeb.dl
 C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\GolfTrackerWeb.pdb
 C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\GolfTrackerWeb.genruntimeconfig.cache
 C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\ref\GolfTrackerWeb.dll
-C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\compressed\ezorlo2kjq-{0}-yp6kaetfxp-yp6kaetfxp.gz
-C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\compressed\v69f1fsnis-{0}-h3ticrfpt2-h3ticrfpt2.gz
-C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\compressed\6hakfqj6n8-{0}-v9fyef3jp5-v9fyef3jp5.gz
+C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\compressed\v69f1fsnis-{0}-q5nt3n1jqg-q5nt3n1jqg.gz
+C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\compressed\ezorlo2kjq-{0}-uulc67qs6e-uulc67qs6e.gz
+C:\Users\bjtsm\golfLog\GolfTrackerWeb\obj\Debug\net10.0\compressed\6hakfqj6n8-{0}-daghwjeha0-daghwjeha0.gz

@@ -65,6 +65,18 @@ byId('start-round').addEventListener('click', async () => {
   renderScorecard();
 });
 
+byId('back-to-start').addEventListener('click', async () => {
+  if (roundId > 0) {
+    await fetch(`/api/rounds/${roundId}`, { method: 'DELETE' });
+  }
+  roundId = 0;
+  playerIndex = 0;
+  byId('score-view').classList.add('hidden');
+  byId('start-view').classList.remove('hidden');
+  byId('leaderboard-view').classList.remove('hidden');
+  loadLeaderboard();
+});
+
 byId('save-scores').addEventListener('click', async () => {
   const inputs = [...document.querySelectorAll('.score-input')];
   const scores = inputs.map(input => Number(input.value));
