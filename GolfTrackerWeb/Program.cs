@@ -77,6 +77,29 @@ app.MapDelete("/api/rounds/{roundId:int}", (int roundId) =>
 	round.CommandText = "DELETE FROM Rounds WHERE RoundId = $roundId";
 	round.Parameters.AddWithValue("$roundId", roundId);
 	round.ExecuteNonQuery();
+
+	using var shiftRoundsUp = connection.CreateCommand();
+	shiftRoundsUp.Transaction = transaction;
+	shiftRoundsUp.CommandText = "UPDATE Rounds SET RoundId = -RoundId WHERE RoundId > $roundId";
+	shiftRoundsUp.Parameters.AddWithValue("$roundId", roundId);
+	shiftRoundsUp.ExecuteNonQuery();
+
+	using var shiftScoresUp = connection.CreateCommand();
+	shiftScoresUp.Transaction = transaction;
+	shiftScoresUp.CommandText = "UPDATE HoleScores SET RoundId = -RoundId WHERE RoundId > $roundId";
+	shiftScoresUp.Parameters.AddWithValue("$roundId", roundId);
+	shiftScoresUp.ExecuteNonQuery();
+
+	using var shiftRoundsDown = connection.CreateCommand();
+	shiftRoundsDown.Transaction = transaction;
+	shiftRoundsDown.CommandText = "UPDATE Rounds SET RoundId = -RoundId - 1 WHERE RoundId < 0";
+	shiftRoundsDown.ExecuteNonQuery();
+
+	using var shiftScoresDown = connection.CreateCommand();
+	shiftScoresDown.Transaction = transaction;
+	shiftScoresDown.CommandText = "UPDATE HoleScores SET RoundId = -RoundId - 1 WHERE RoundId < 0";
+	shiftScoresDown.ExecuteNonQuery();
+
 	transaction.Commit();
 	return Results.Ok();
 });

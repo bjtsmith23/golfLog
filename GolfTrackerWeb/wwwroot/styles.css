@@ -48,7 +48,9 @@ button:active { transform: translateY(1px); }
 .tracker { margin: 18px 0 12px; padding: 14px; border: 1px solid #aeb8bc; background: #dfe4e6; color: var(--navy); text-align: center; font: 700 20px Arial, sans-serif; }
 .leaderboard-list { display: grid; gap: 8px; }
 .round-entry { border: 1px solid var(--line); padding: 13px; background: white; font-family: Arial, sans-serif; }
-.round-top { color: var(--navy); font-size: 13px; font-weight: 700; }
+.round-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--navy); font-size: 13px; font-weight: 700; }
 .round-scores { margin: 9px 0; font-size: 16px; }
 .round-result { color: var(--accent); font-size: 13px; font-weight: 700; }
+.delete-round { width: auto; margin: 0; padding: 6px 9px; background: transparent; border: 1px solid var(--line); color: var(--muted); font: 700 11px Arial, sans-serif; }
+.delete-round:hover { border-color: var(--accent); color: var(--accent); }
 @media (min-width: 600px) { .panel { padding: 26px; } }
