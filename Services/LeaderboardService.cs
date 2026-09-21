@@ -38,6 +38,20 @@ namespace GolfTracker.Services
                     };
                 }
 
+                var player1HoleCount = roundScores
+                    .Where(s => s.PlayerId == round.Player1Id)
+                    .Select(s => s.HoleNumber)
+                    .Distinct()
+                    .Count();
+                var player2HoleCount = roundScores
+                    .Where(s => s.PlayerId == round.Player2Id)
+                    .Select(s => s.HoleNumber)
+                    .Distinct()
+                    .Count();
+
+                if (player1HoleCount != 18 || player2HoleCount != 18)
+                    continue;
+
                 var player1Score = roundScores
                     .Where(s => s.PlayerId == round.Player1Id)
                     .Sum(s => s.Score);

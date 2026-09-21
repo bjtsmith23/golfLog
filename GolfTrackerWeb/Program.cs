@@ -107,10 +107,25 @@ app.MapGet("/api/leaderboard", (int? year) =>
 			scores.Add((scoreReader.GetInt32(0), scoreReader.GetInt32(1), scoreReader.GetInt32(2)));
 	}
 
+	bool IsCompleteRound(int roundId)
+	{
+		var roundScores = scores.Where(score => score.RoundId == roundId).ToList();
+		if (rounds.TryGetValue(roundId, out var round))
+		{
+			return roundScores.Count(score => score.PlayerId == round.Player1Id) == 18 &&
+				roundScores.Count(score => score.PlayerId == round.Player2Id) == 18;
+		}
+
+		return roundScores
+			.GroupBy(score => score.PlayerId)
+			.Count(playerScores => playerScores.Count() == 18) >= 2;
+	}
+
 	var roundIds = rounds.Keys
 		.Where(roundId => rounds[roundId].DatePlayed.Year == selectedYear)
 		.Union(scores.Select(score => score.RoundId))
 		.Where(roundId => !rounds.ContainsKey(roundId) || rounds[roundId].DatePlayed.Year == selectedYear)
+		.Where(IsCompleteRound)
 		.OrderBy(roundId => roundId)
 		.ThenBy(roundId => rounds.TryGetValue(roundId, out var round) ? round.DatePlayed : DateTime.Today)
 		.ToList();
