@@ -17,7 +17,7 @@ namespace GolfTracker.Forms
         private readonly TextBlock frontNineTotalText = new TextBlock();
         private readonly TextBlock backNineTotalText = new TextBlock();
         private readonly TextBox[] holeInputs = new TextBox[18];
-        private readonly int[] yardages = { 412, 388, 179, 290, 317, 517, 137, 469, 338, 340, 505, 181, 271, 154, 397, 411, 147, 564 };
+        private readonly int[] yardages = { 439, 370, 426, 224, 544, 170, 420, 435, 397, 320, 148, 325, 465, 360, 460, 190, 337, 417 };
         private readonly int[] holePar = { 4, 4, 3, 4, 4, 5, 3, 5, 4, 4, 5, 3, 4, 3, 4, 4, 3, 5 };
         private readonly int[] strokeIndex = { 1, 3, 7, 15, 11, 5, 17, 13, 9, 8, 12, 10, 18, 14, 2, 4, 16, 6 };
         private readonly string playerName;
