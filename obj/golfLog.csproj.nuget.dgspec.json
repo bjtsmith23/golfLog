@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bjtsm\\golfLog\\golfLog.csproj": {}
+    "c:\\Users\\bjtsm\\golfLog\\golfLog.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bjtsm\\golfLog\\golfLog.csproj": {
+    "c:\\Users\\bjtsm\\golfLog\\golfLog.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bjtsm\\golfLog\\golfLog.csproj",
+        "projectUniqueName": "c:\\Users\\bjtsm\\golfLog\\golfLog.csproj",
         "projectName": "golfLog",
-        "projectPath": "C:\\Users\\bjtsm\\golfLog\\golfLog.csproj",
+        "projectPath": "c:\\Users\\bjtsm\\golfLog\\golfLog.csproj",
         "packagesPath": "C:\\Users\\bjtsm\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bjtsm\\golfLog\\obj\\",
+        "outputPath": "c:\\Users\\bjtsm\\golfLog\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\bjtsm\\AppData\\Roaming\\NuGet\\NuGet.Config"

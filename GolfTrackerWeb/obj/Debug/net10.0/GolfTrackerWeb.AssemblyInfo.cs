@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GolfTrackerWeb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fc3716a385c7f2ad97652a53ef333d2eece05993")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ca90210f4e6ab86a3456d7eca92d1ff013eb858e")]
 [assembly: System.Reflection.AssemblyProductAttribute("GolfTrackerWeb")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GolfTrackerWeb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

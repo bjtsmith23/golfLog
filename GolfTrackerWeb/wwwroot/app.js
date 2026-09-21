@@ -109,7 +109,7 @@ async function loadLeaderboard() {
     totals[round.player2] = (totals[round.player2] || 0) + round.player2Score;
   });
   const standings = Object.entries(totals).sort((a, b) => a[1] - b[1]);
-  byId('annual-tracker').textContent = standings.length < 2 ? 'Waiting for both players' : standings[0][1] === standings[1][1] ? 'TIE' : `${standings[0][0]} UP ${standings[1][1] - standings[0][1]}`;
+  byId('annual-tracker').textContent = standings.length < 2 ? 'No rounds played' : standings[0][1] === standings[1][1] ? 'TIE' : `${standings[0][0]} UP ${standings[1][1] - standings[0][1]}`;
   byId('leaderboard-list').innerHTML = rounds.length ? rounds.map(round => `<article class="round-entry"><div class="round-top"><span>Round ${round.roundId} | ${round.datePlayed}</span><button class="delete-round" type="button" data-round-id="${round.roundId}" aria-label="Delete round ${round.roundId}">Delete</button></div><div class="round-scores">${round.player1}: ${round.player1Score} &nbsp; ${round.player2}: ${round.player2Score}</div><div class="round-result">${round.result}</div></article>`).join('') : '<p class="muted">No rounds found for this year.</p>';
 }
 

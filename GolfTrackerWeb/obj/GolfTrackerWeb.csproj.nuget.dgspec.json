@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bjtsm\\golfLog\\GolfTrackerWeb\\GolfTrackerWeb.csproj": {}
+    "c:\\Users\\bjtsm\\golfLog\\GolfTrackerWeb\\GolfTrackerWeb.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bjtsm\\golfLog\\GolfTrackerWeb\\GolfTrackerWeb.csproj": {
+    "c:\\Users\\bjtsm\\golfLog\\GolfTrackerWeb\\GolfTrackerWeb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bjtsm\\golfLog\\GolfTrackerWeb\\GolfTrackerWeb.csproj",
+        "projectUniqueName": "c:\\Users\\bjtsm\\golfLog\\GolfTrackerWeb\\GolfTrackerWeb.csproj",
         "projectName": "GolfTrackerWeb",
-        "projectPath": "C:\\Users\\bjtsm\\golfLog\\GolfTrackerWeb\\GolfTrackerWeb.csproj",
+        "projectPath": "c:\\Users\\bjtsm\\golfLog\\GolfTrackerWeb\\GolfTrackerWeb.csproj",
         "packagesPath": "C:\\Users\\bjtsm\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bjtsm\\golfLog\\GolfTrackerWeb\\obj\\",
+        "outputPath": "c:\\Users\\bjtsm\\golfLog\\GolfTrackerWeb\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\bjtsm\\AppData\\Roaming\\NuGet\\NuGet.Config"

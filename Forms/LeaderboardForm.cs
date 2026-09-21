@@ -131,7 +131,7 @@ namespace GolfTracker.Forms
             var standings = totals.OrderBy(pair => pair.Value).ToList();
             if (standings.Count < 2)
             {
-                annualLeaderText.Text = "Waiting for both players";
+                annualLeaderText.Text = "No rounds played";
                 return;
             }
 

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "X6d4yJFm9vA=",
+  "dgSpecHash": "f8EDchjn1rU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\bjtsm\\golfLog\\GolfTrackerWeb\\GolfTrackerWeb.csproj",
+  "projectFilePath": "c:\\Users\\bjtsm\\golfLog\\GolfTrackerWeb\\GolfTrackerWeb.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\bjtsm\\.nuget\\packages\\microsoft.data.sqlite.core\\8.0.0\\microsoft.data.sqlite.core.8.0.0.nupkg.sha512",
     "C:\\Users\\bjtsm\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.0\\microsoft.entityframeworkcore.8.0.0.nupkg.sha512",
@@ -22,9 +22,9 @@
       "code": "NU1903",
       "level": "Warning",
       "message": "Package 'SQLitePCLRaw.lib.e_sqlite3' 2.1.6 has a known high severity vulnerability, https://github.com/advisories/GHSA-2m69-gcr7-jv3q",
-      "projectPath": "C:\\Users\\bjtsm\\golfLog\\GolfTrackerWeb\\GolfTrackerWeb.csproj",
+      "projectPath": "c:\\Users\\bjtsm\\golfLog\\GolfTrackerWeb\\GolfTrackerWeb.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\bjtsm\\golfLog\\GolfTrackerWeb\\GolfTrackerWeb.csproj",
+      "filePath": "c:\\Users\\bjtsm\\golfLog\\GolfTrackerWeb\\GolfTrackerWeb.csproj",
       "libraryId": "SQLitePCLRaw.lib.e_sqlite3",
       "targetGraphs": [
         "net10.0"

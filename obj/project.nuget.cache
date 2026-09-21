@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OupQg5eVu3M=",
+  "dgSpecHash": "mr57c2JLBWU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\bjtsm\\golfLog\\golfLog.csproj",
+  "projectFilePath": "c:\\Users\\bjtsm\\golfLog\\golfLog.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\bjtsm\\.nuget\\packages\\microsoft.data.sqlite.core\\8.0.0\\microsoft.data.sqlite.core.8.0.0.nupkg.sha512",
     "C:\\Users\\bjtsm\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.0\\microsoft.entityframeworkcore.8.0.0.nupkg.sha512",
